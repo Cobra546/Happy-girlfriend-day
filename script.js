@@ -13,66 +13,62 @@ const stopwatch = document.getElementById("stopwatch");
 
 const slides = document.querySelectorAll(".slide");
 
+const hearts = document.getElementById("hearts");
+
 // ==========================
 // ENVELOPE OPEN
 // ==========================
 
 envelope.addEventListener("click", () => {
 
-envelope.classList.add("open");
+    envelope.classList.add("open");
 
-setTimeout(() => {
+    setTimeout(() => {
 
-envelopePage.style.display = "none";
+        envelopePage.style.display = "none";
 
-website.classList.remove("hidden");
+        website.classList.remove("hidden");
+        website.style.display = "block";
 
-music.play();
+        music.play().catch(()=>{});
 
-startTimer();
+        startTimer();
+        startSlideshow();
+        startHearts();
 
-startSlideShow();
-
-createHearts();
-
-},1000);
+    },1000);
 
 });
 
 // ==========================
-// MUSIC
+// MUSIC BUTTON
 // ==========================
 
 let playing = true;
 
-musicBtn.onclick = () => {
+musicBtn.addEventListener("click",()=>{
 
 if(playing){
 
 music.pause();
-
 musicBtn.innerHTML="🔇";
 
 }else{
 
 music.play();
-
 musicBtn.innerHTML="🎵";
 
 }
 
 playing=!playing;
 
-};
+});
 
 // ==========================
 // STOPWATCH
 // ==========================
 
-// 27 MAY 2025
-// 7:39 PM PKT
-
-const startDate = new Date("2025-05-27T19:39:00+05:00");
+const startDate=new Date("2025-05-27T19:39:00+05:00");
 
 function startTimer(){
 
@@ -84,50 +80,24 @@ setInterval(updateTimer,1000);
 
 function updateTimer(){
 
-const now = new Date();
+const now=new Date();
 
-const diff = now-startDate;
+const diff=now-startDate;
 
-const days = Math.floor(diff/(1000*60*60*24));
+const days=Math.floor(diff/86400000);
 
-const hours = Math.floor(
+const hours=Math.floor((diff%86400000)/3600000);
 
-(diff%(1000*60*60*24))
+const minutes=Math.floor((diff%3600000)/60000);
 
-/
-
-(1000*60*60)
-
-);
-
-const minutes = Math.floor(
-
-(diff%(1000*60*60))
-
-/
-
-(1000*60)
-
-);
-
-const seconds = Math.floor(
-
-(diff%(1000*60))
-
-/
-
-1000
-
-);
+const seconds=Math.floor((diff%60000)/1000);
 
 stopwatch.innerHTML=
 
 `${days} Days<br>
 
 ${String(hours).padStart(2,"0")} :
-
 ${String(minutes).padStart(2,"0")} :
-
 ${String(seconds).padStart(2,"0")}`;
 
 }
@@ -136,23 +106,23 @@ ${String(seconds).padStart(2,"0")}`;
 // SLIDESHOW
 // ==========================
 
-let current=0;
+let currentSlide=0;
 
-function startSlideShow(){
+function startSlideshow(){
 
 setInterval(()=>{
 
-slides[current].classList.remove("active");
+slides[currentSlide].classList.remove("active");
 
-current++;
+currentSlide++;
 
-if(current>=slides.length){
+if(currentSlide>=slides.length){
 
-current=0;
+currentSlide=0;
 
 }
 
-slides[current].classList.add("active");
+slides[currentSlide].classList.add("active");
 
 },4000);
 
@@ -162,9 +132,7 @@ slides[current].classList.add("active");
 // FLOATING HEARTS
 // ==========================
 
-function createHearts(){
-
-const container=document.getElementById("hearts");
+function startHearts(){
 
 setInterval(()=>{
 
@@ -176,15 +144,11 @@ heart.innerHTML="💖";
 
 heart.style.left=Math.random()*100+"vw";
 
-heart.style.fontSize=
+heart.style.fontSize=(20+Math.random()*20)+"px";
 
-20+Math.random()*25+"px";
+heart.style.animationDuration=(5+Math.random()*5)+"s";
 
-heart.style.animationDuration=
-
-5+Math.random()*5+"s";
-
-container.appendChild(heart);
+hearts.appendChild(heart);
 
 setTimeout(()=>{
 
@@ -192,23 +156,169 @@ heart.remove();
 
 },10000);
 
-},350);
+},300);
 
 }
 
 // ==========================
-// SCROLL ANIMATION
+// TYPEWRITER EFFECT
 // ==========================
 
-const observer=
+const letter = document.getElementById("loveLetter");
 
-new IntersectionObserver(entries=>{
+const originalText = letter.innerHTML;
+
+letter.innerHTML = "";
+
+let i = 0;
+
+function typeLetter(){
+
+    if(i < originalText.length){
+
+        letter.innerHTML += originalText.charAt(i);
+
+        i++;
+
+        setTimeout(typeLetter,35);
+
+    }
+
+}
+
+setTimeout(typeLetter,1800);
+
+// ==========================
+// CLICKABLE STARS
+// ==========================
+
+const stars=document.querySelectorAll(".star");
+
+stars.forEach((star,index)=>{
+
+star.addEventListener("click",()=>{
+
+stars.forEach((s,i)=>{
+
+s.textContent=i<=index?"⭐":"☆";
+
+});
+
+});
+
+});
+
+// ==========================
+// REVIEW BUTTON
+// ==========================
+
+const sendReview=document.getElementById("sendReview");
+
+const reviewText=document.getElementById("reviewText");
+
+sendReview.addEventListener("click",()=>{
+
+if(reviewText.value.trim()==""){
+
+alert("Please write something ❤️");
+
+return;
+
+}
+
+alert("Thank You ❤️");
+
+reviewText.value="";
+
+});
+
+// ==========================
+// SURPRISE BUTTON
+// ==========================
+
+const gift=document.getElementById("giftBtn");
+
+gift.addEventListener("click",()=>{
+
+alert(`❤️
+
+Happy Girlfriend Day ❤️
+
+Thank you for being my happiness.
+
+I promise to stay beside you forever.
+
+I Love You ❤️
+
+`);
+
+});
+
+// ==========================
+// FIREWORKS
+// ==========================
+
+function fireworks(){
+
+for(let i=0;i<35;i++){
+
+const spark=document.createElement("div");
+
+spark.style.position="fixed";
+spark.style.width="8px";
+spark.style.height="8px";
+spark.style.borderRadius="50%";
+spark.style.left="50%";
+spark.style.top="45%";
+spark.style.background=`hsl(${Math.random()*360},100%,60%)`;
+spark.style.pointerEvents="none";
+spark.style.zIndex="99999";
+
+document.body.appendChild(spark);
+
+const x=(Math.random()-0.5)*700;
+const y=(Math.random()-0.5)*700;
+
+spark.animate([
+
+{transform:"translate(0,0)",opacity:1},
+
+{transform:`translate(${x}px,${y}px)`,opacity:0}
+
+],{
+
+duration:1800,
+easing:"ease-out"
+
+});
+
+setTimeout(()=>{
+
+spark.remove();
+
+},1800);
+
+}
+
+}
+
+envelope.addEventListener("click",()=>{
+
+setTimeout(fireworks,1200);
+
+});
+
+// ==========================
+// FADE SCROLL
+// ==========================
+
+const observer=new IntersectionObserver(entries=>{
 
 entries.forEach(entry=>{
 
 if(entry.isIntersecting){
 
-entry.target.style.opacity=1;
+entry.target.style.opacity="1";
 
 entry.target.style.transform="translateY(0px)";
 
@@ -218,85 +328,14 @@ entry.target.style.transform="translateY(0px)";
 
 });
 
-document.querySelectorAll(
+document.querySelectorAll("section").forEach(sec=>{
 
-".message,.timer,.gallery,.sorry,.review"
+sec.style.opacity="0";
 
-).forEach(section=>{
+sec.style.transform="translateY(70px)";
 
-section.style.opacity=0;
+sec.style.transition="1s";
 
-section.style.transform="translateY(80px)";
+observer.observe(sec);
 
-section.style.transition="1s";
-
-observer.observe(section);
-
-});
-
-// ==========================
-// AUTO PLAY FIX
-// ==========================
-
-document.body.addEventListener(
-
-"click",
-
-()=>{
-
-music.play().catch(()=>{});
-
-},
-
-{once:true}
-
-);
-// ==========================
-// FIREWORKS
-// ==========================
-
-function fireworks(){
-
-for(let i=0;i<40;i++){
-
-const spark=document.createElement("div");
-
-spark.style.position="fixed";
-spark.style.left="50%";
-spark.style.top="45%";
-spark.style.width="8px";
-spark.style.height="8px";
-spark.style.borderRadius="50%";
-spark.style.background=`hsl(${Math.random()*360},100%,70%)`;
-spark.style.pointerEvents="none";
-spark.style.zIndex="9999";
-
-const x=(Math.random()-0.5)*700;
-const y=(Math.random()-0.5)*700;
-
-spark.animate([
-{
-transform:"translate(0,0) scale(1)",
-opacity:1
-},
-{
-transform:`translate(${x}px,${y}px) scale(0)`,
-opacity:0
-}
-],{
-duration:1800,
-easing:"ease-out"
-});
-
-document.body.appendChild(spark);
-
-setTimeout(()=>spark.remove(),1800);
-
-}
-
-}
-
-// Envelope khulne ke baad fireworks
-envelope.addEventListener("click",()=>{
-setTimeout(fireworks,1200);
 });

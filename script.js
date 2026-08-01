@@ -251,3 +251,71 @@ music.play().catch(()=>{});
 {once:true}
 
 );
+// ==========================
+// FIREWORKS
+// ==========================
+
+function fireworks(){
+
+for(let i=0;i<40;i++){
+
+const spark=document.createElement("div");
+
+spark.style.position="fixed";
+spark.style.left="50%";
+spark.style.top="45%";
+spark.style.width="8px";
+spark.style.height="8px";
+spark.style.borderRadius="50%";
+spark.style.background=`hsl(${Math.random()*360},100%,70%)`;
+spark.style.pointerEvents="none";
+spark.style.zIndex="9999";
+
+const x=(Math.random()-0.5)*700;
+const y=(Math.random()-0.5)*700;
+
+spark.animate([
+{
+transform:"translate(0,0) scale(1)",
+opacity:1
+},
+{
+transform:`translate(${x}px,${y}px) scale(0)`,
+opacity:0
+}
+],{
+duration:1800,
+easing:"ease-out"
+});
+
+document.body.appendChild(spark);
+
+setTimeout(()=>spark.remove(),1800);
+
+}
+
+}
+
+// Envelope khulne ke baad fireworks
+envelope.addEventListener("click",()=>{
+setTimeout(fireworks,1200);
+});
+
+// ==========================
+// FALLING ROSE PETALS
+// ==========================
+
+setInterval(()=>{
+
+const petal=document.createElement("div");
+
+petal.innerHTML="🌹";
+
+petal.style.position="fixed";
+petal.style.left=Math.random()*100+"vw";
+petal.style.top="-40px";
+petal.style.fontSize=(20+Math.random()*20)+"px";
+petal.style.pointerEvents="none";
+petal.style.zIndex="999";
+
+petal.animate

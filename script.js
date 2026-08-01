@@ -300,22 +300,3 @@ setTimeout(()=>spark.remove(),1800);
 envelope.addEventListener("click",()=>{
 setTimeout(fireworks,1200);
 });
-
-// ==========================
-// FALLING ROSE PETALS
-// ==========================
-
-setInterval(()=>{
-
-const petal=document.createElement("div");
-
-petal.innerHTML="🌹";
-
-petal.style.position="fixed";
-petal.style.left=Math.random()*100+"vw";
-petal.style.top="-40px";
-petal.style.fontSize=(20+Math.random()*20)+"px";
-petal.style.pointerEvents="none";
-petal.style.zIndex="999";
-
-petal.animate

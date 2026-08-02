@@ -65,133 +65,91 @@ opacity:0;
 
 }
 
-/* ===========================
-ENVELOPE
-=========================== */
+/* LOVE GATE */
 
-#envelopePage{
+#gate{
 
-height:100vh;
+position:fixed;
+
+inset:0;
+
 display:flex;
-flex-direction:column;
+
 justify-content:center;
+
 align-items:center;
 
-}
+background:linear-gradient(135deg,#090011,#1c0930,#2b0d49);
 
-.envelope{
+z-index:99999;
 
-position:relative;
-width:340px;
-height:230px;
-cursor:pointer;
-transition:.5s;
+transition:.7s;
 
 }
 
-.envelope:hover{
+.gateBox{
 
-transform:scale(1.05);
+width:min(90%,420px);
+
+padding:35px;
+
+text-align:center;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:25px;
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:0 0 40px rgba(255,0,150,.3);
 
 }
 
-.envelope-back{
+.gateBox h1{
 
-position:absolute;
-bottom:0;
+font-size:70px;
+
+margin-bottom:15px;
+
+}
+
+.gateBox h2{
+
+margin-bottom:10px;
+
+}
+
+.gateBox p{
+
+margin-bottom:25px;
+
+color:#ffd6ef;
+
+}
+
+#loveInput{
+
 width:100%;
-height:180px;
-background:#f7e7d8;
-border-radius:12px;
-box-shadow:0 20px 45px rgba(0,0,0,.4);
+
+padding:16px;
+
+font-size:18px;
+
+border:none;
+
+outline:none;
+
+border-radius:15px;
+
+margin-bottom:20px;
 
 }
 
-.envelope-front{
+#openBtn{
 
-position:absolute;
-bottom:0;
 width:100%;
-height:180px;
-background:#ecd7c5;
-clip-path:polygon(0 100%,50% 45%,100% 100%);
-z-index:5;
-
-}
-
-.envelope-flap{
-
-position:absolute;
-top:0;
-width:100%;
-height:120px;
-background:#f3dfcf;
-clip-path:polygon(0 0,100% 0,50% 100%);
-transform-origin:top;
-transition:1s;
-z-index:6;
-
-}
-
-.envelope-letter{
-
-position:absolute;
-left:20px;
-right:20px;
-bottom:15px;
-height:155px;
-background:#fff;
-border-radius:12px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-transition:1s;
-z-index:2;
-
-}
-
-.envelope-letter h2{
-
-font-size:60px;
-
-}
-
-.envelope-letter p{
-
-color:#ff4fa8;
-font-weight:600;
-
-}
-
-.envelope.open .envelope-flap{
-
-transform:rotateX(180deg);
-
-}
-
-.envelope.open .envelope-letter{
-
-transform:translateY(-110px);
-
-}
-
-.tapText{
-
-margin-top:40px;
-font-size:32px;
-color:#ff7bc6;
-animation:pulse 2s infinite;
-
-}
-
-@keyframes pulse{
-
-50%{
-
-transform:scale(1.08);
-
-}
 
 }
 

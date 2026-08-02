@@ -2,10 +2,6 @@
 // ELEMENTS
 // ==========================
 
-const envelopePage = document.getElementById("envelopePage");
-const envelope = document.querySelector(".envelope");
-const website = document.getElementById("website");
-
 const music = document.getElementById("bgMusic");
 const musicBtn = document.getElementById("musicBtn");
 
@@ -15,30 +11,81 @@ const slides = document.querySelectorAll(".slide");
 
 const hearts = document.getElementById("hearts");
 
-// ==========================
-// ENVELOPE OPEN
-// ==========================
+const gate=document.getElementById("gate");
+const website=document.getElementById("website");
 
-envelope.addEventListener("click", () => {
+const input=document.getElementById("loveInput");
 
-    envelope.classList.add("open");
+const openBtn=document.getElementById("openBtn");
 
-    setTimeout(() => {
+openBtn.onclick=()=>{
 
-        envelopePage.style.display = "none";
+const text=input.value.toLowerCase().trim();
 
-        website.classList.remove("hidden");
-        website.style.display = "block";
+const goodWords=[
 
-        music.play().catch(()=>{});
+"love",
 
-        startTimer();
-        startSlideshow();
-        startHearts();
+"best",
 
-    },1000);
+"cute",
 
-});
+"beautiful",
+
+"handsome",
+
+"happy",
+
+"miss",
+
+"favorite",
+
+"favourite",
+
+"sweet",
+
+"amazing",
+
+"everything"
+
+];
+
+const valid=goodWords.some(word=>text.includes(word));
+
+if(valid){
+
+gate.style.opacity="0";
+
+setTimeout(()=>{
+
+gate.style.display="none";
+
+website.classList.remove("hidden");
+
+website.style.display="block";
+
+music.play().catch(()=>{});
+
+startTimer();
+
+startSlideshow();
+
+startHearts();
+
+fireworks();
+
+typeLetter();
+
+},700);
+
+}else{
+
+alert("🥺 Say something sweet first ❤️");
+
+}
+
+};
+
 
 // ==========================
 // MUSIC BUTTON
